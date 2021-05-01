@@ -15,16 +15,27 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "module": "esnext",
+    "lib": ["es2018", "dom"],
+    // "allowJs": true,
+    // "skipLibCheck": true,
+    // "esModuleInterop": true,
+    // "allowSyntheticDefaultImports": true,
+    // "strictNullChecks": false,
+    // "resolveJsonModule": true,
+    // "isolatedModules": true,
+    // "noEmit": true,
+    "jsx": "react"
+    // "noUnusedLocals": true,
+    // "rootDir": "./src",
+    // "noImplicitAny": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "enableIvy": true,
+    "allowEmptyCodegenFiles": true
   }
 }
