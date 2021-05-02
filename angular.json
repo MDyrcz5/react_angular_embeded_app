@@ -19,6 +19,11 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+          "allowedCommonJsDependencies": [
+            "lodash",
+            "react",
+            "react-dom"
+          ],
           "options": {
             "outputPath": "dist/angular-react-embeded",
             "index": "src/index.html",

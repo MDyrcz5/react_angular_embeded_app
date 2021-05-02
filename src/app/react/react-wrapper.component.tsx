@@ -17,7 +17,7 @@ import App from "./app/App";
 @Component({
   selector: "app-react-wrapper",
   templateUrl: "./react-wrapper.component.html",
-  styleUrls: ["./react-wrapper.component.scss"],
+  styleUrls: ["./app/App.scss"],
   encapsulation: ViewEncapsulation.None,
 })
 export class ReactWrapperComponent
