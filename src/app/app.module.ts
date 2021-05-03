@@ -1,15 +1,21 @@
+import { MaterialModule } from './material.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactWrapperComponent } from './react/react-wrapper.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const ReactComponents = [];
+// const ReactComponents = [];
 
 @NgModule({
-  declarations: [AppComponent, ReactWrapperComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -10,9 +10,10 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import App from "./app/App";
+import { ChakraProvider } from "@chakra-ui/react";
 
 @Component({
   selector: "app-react-wrapper",
@@ -22,7 +23,7 @@ import App from "./app/App";
 })
 export class ReactWrapperComponent
   implements OnInit, OnChanges, OnDestroy, AfterViewInit {
-  @ViewChild("react_app", { static: true }) containerRef!: ElementRef;
+  @ViewChild("react_app", { static: false }) containerRef!: ElementRef;
   constructor() {}
 
   ngOnInit() {}
@@ -42,7 +43,9 @@ export class ReactWrapperComponent
   private render() {
     ReactDOM.render(
       <React.StrictMode>
-        <App />
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
       </React.StrictMode>,
       this.containerRef.nativeElement
     );
