@@ -139,3 +139,7 @@ export class ReactWrapperComponent
 
 - Inform Angular client that the router inside React app has changed
 - Fix CSS styles to get bundled by webpack not only with Angular's styleUrls
+
+# Screens
+![image](https://user-images.githubusercontent.com/23345904/116921776-c3f86b80-ac54-11eb-9f09-00bf8b83991e.png)
+
