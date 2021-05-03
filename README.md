@@ -138,4 +138,4 @@ export class ReactWrapperComponent
 ## What to change or improve?
 
 - Inform Angular client that the router inside React app has changed
-- Fix CSS styles to work with react app not only in react wrapper
+- Fix CSS styles to get bundled by webpack not only with Angular's styleUrls
