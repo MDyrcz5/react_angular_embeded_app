@@ -23,7 +23,8 @@
             "lodash",
             "react",
             "react-dom",
-            "hoist-non-react-statics"
+            "hoist-non-react-statics",
+            "react-router-dom"
           ],
           "options": {
             "outputPath": "dist/angular-react-embeded",
