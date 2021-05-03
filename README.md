@@ -1,27 +1,141 @@
-# AngularReactEmbeded
+# React Embeded in Angular - Easy way 🧨
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+## TL;DR
 
-## Development server
+Demo of a simple and straightforward way to embed React components into Angular, in order to build a bridge between the frameworks. Solution to quickly and gradually migrate old components to React, until the entire application is rewritten in React.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+### Requirements
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Styling (css/scss) must work
+- React components must not be aware of being embedded in Angular
+- Change detection and props binding must work
+- Class and functional react components must be able to control state
+- Must be incorporated into the same source project and use the same build pipelines
+- Being simple and easy to implement
 
-## Build
+## Implementation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### 1. Add React basic dependencies
 
-## Running unit tests
+**package.json**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+"dependencies": {
+  ...
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-router-dom": "^5.2.0",
+  ...
+  },
+  "devDependencies": {
+  ...
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-router-dom": "^5.1.7",
+  ...
+  }
+```
 
-## Running end-to-end tests
+### 2. Add those lines in tsconfig.json file to let Angular know about React code in our project and enable IVY.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+  "compileOnSave": false,
+  "compilerOptions": {
+    ...
+    "module": "esnext",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
+  },
+  "angularCompilerOptions": {
+    ...
+    "enableIvy": true,
+    "allowEmptyCodegenFiles": true
+    ...
+  }
+```
 
-## Further help
+### 3. Implement React Wrapper Component
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This kind of wrapper should be created per each React component. The wrapper is responsible for detecting changes and re-rendering the component as a result of what props take effect, when wrapper is destroyed React component gets unmounted.
+
+Major solution:
+
+- File extension is .tsx
+- Wrapped Component styles are imported via Angular component styleUrls, so as to be bundled by Webpack
+- Encapsulation is changed to `none`
+- containerRef is created for mounting component into lifecycle hooks. OnChanges and AfterViewInit are set to render the component
+- OnDestroy React component gets unmounted
+
+Angular @Input and @Output will represent React Props that would be passed into component.
+
+**react-wrapper.component.tsx**
+
+```
+@Component({
+  selector: "app-react-wrapper",
+  template: `<span #react_component></span>`,
+  styleUrls: ["./react-wrapper.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+})
+export class ReactWrapperComponent
+  implements OnChanges, OnDestroy, AfterViewInit {
+  @ViewChild("react_component", { static: false }) containerRef!: ElementRef;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.render();
+  }
+
+  ngAfterViewInit(): void {
+    this.render();
+  }
+
+  ngOnDestroy(): void {
+    ReactDOM.unmountComponentAtNode(this.containerRef.nativeElement);
+  }
+
+  private render() {
+    ReactDOM.render(
+      <React.StrictMode>
+        <ChakraProvider>
+          <ReactComponent />
+        </ChakraProvider>
+      </React.StrictMode>,
+      this.containerRef.nativeElement
+    );
+  }
+}
+```
+
+### 4. Other added changes
+
+**React**
+
+- Providing Chakra ui lib
+- React Router
+- Form build with `react-hook-form`
+
+**Angular**
+
+- Routing
+- Side nav build with `Angular Material`
+
+## Run
+
+**Install Deps.**
+
+`yarn` or `npm install`
+
+**Start in Devmode**
+
+`yarn start` or `npm start`
+
+## What to change or improve?
+
+- Inform Angular client that the router inside React app has changed
+- Fix CSS styles to work with react app not only in react wrapper

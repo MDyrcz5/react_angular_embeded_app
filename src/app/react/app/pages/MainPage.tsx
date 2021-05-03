@@ -1,5 +1,6 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
+import BasicReactPage from "./BasicReactPage";
 import FormPage from "./FormPage";
 
 const MainPage = () => {
@@ -7,15 +8,14 @@ const MainPage = () => {
     <Tabs>
       <TabList>
         <Tab>Form</Tab>
-        <Tab>Buttons</Tab>
+        <Tab>Logo</Tab>
       </TabList>
-
       <TabPanels>
         <TabPanel>
           <FormPage />
         </TabPanel>
         <TabPanel>
-          <p>Buttons!</p>
+          <BasicReactPage />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -17,9 +17,8 @@ const FormPage = () => {
           <option value="Admin">Admin</option>
           <option value="User">User</option>
         </Select>
-
         <Button type="submit" colorScheme="blue">
-          Button
+          Send
         </Button>
       </Stack>
     </form>

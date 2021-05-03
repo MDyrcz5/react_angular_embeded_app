@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./App.scss";
 import { Flex, Spinner } from "@chakra-ui/react";
 import Routes from "./Routes/Routes";
 
-const App: React.FC = () => {
+const ReactComponent: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,4 +24,4 @@ const App: React.FC = () => {
   else return <Routes />;
 };
 
-export default App;
+export default ReactComponent;
